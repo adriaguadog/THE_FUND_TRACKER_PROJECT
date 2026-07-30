@@ -1,0 +1,113 @@
+.root-container {
+    -fx-background-color: linear-gradient(to bottom right, #f5f0ff, #eefbff, #f8fff1, #fff6fb);
+}
+
+.project-title {
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3f748d  ;
+    -fx-effect: dropshadow(gaussian, rgba(59, 150, 182, 0.22), 14, 0.2, 0, 2);
+}
+
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4b8fa8 ;
+}
+
+.form-box {
+    -fx-background-color: rgba(255, 255, 255, 0.94);
+    -fx-background-radius: 24px;
+    -fx-border-radius: 24px;
+    -fx-border-color: #d9edf0;
+    -fx-border-width: 1.4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 24, 0.2, 0, 8);
+}
+
+.input-field {
+    -fx-background-color: #fcfffe;
+    -fx-background-radius: 18px;
+    -fx-border-radius: 18px;
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-text-fill: #2f4f56;
+    -fx-prompt-text-fill: #8da8b0;
+    -fx-padding: 0 14 0 14;
+}
+
+#txtEmail {
+    -fx-border-color: linear-gradient(to right, #5dd8cb, #dff1a6);
+-fx-background-color: #fffefb;}
+
+#txtPassword {
+    -fx-border-color: linear-gradient(to right, #63d9d0, #e5f3af);
+-fx-background-color: #fffefb;}
+
+#txtEmail:hover {
+    -fx-border-color: linear-gradient(to right, #4fd2c5, #d7eb98);
+}
+
+#txtPassword:hover {
+    -fx-border-color: linear-gradient(to right, #54d3c9, #dced9d);
+}
+
+#txtEmail:focused {
+    -fx-border-color: linear-gradient(to right, #45cfc2, #d5e88e);
+    -fx-border-width: 1.4px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(87, 221, 208, 0.22), 10, 0.2, 0, 0);
+}
+
+#txtPassword:focused {
+    -fx-border-color: linear-gradient(to right, #49d2c7, #d8e994);
+    -fx-border-width: 1.4px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(99, 217, 208, 0.22), 10, 0.2, 0, 0);
+}
+
+.login-button {
+    -fx-background-color: linear-gradient(to right, #82d8ff, #80ced6, #95e7b8);
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 999px;
+    -fx-border-radius: 999px;
+    -fx-border-color: #f9d976;
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(128, 206, 214, 0.24), 12, 0.2, 0, 4);
+}
+
+.login-button:hover {
+    -fx-background-color: linear-gradient(to right, #70d1ff, #6bc8d0, #82dfaa);
+    -fx-border-color: #f7d95d;
+    -fx-border-width: 2.2px;
+}
+
+.login-button:pressed {
+    -fx-background-color: linear-gradient(to right, #5ec6f8, #59bcc5, #71d79b);
+    -fx-border-color: #efd04c;
+}
+
+.register-link {
+    -fx-text-fill: #4b8fa8 ;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+}
+
+.register-link:hover {
+    -fx-text-fill: #74aee3;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+}
+
+.error-label {
+    -fx-text-fill: #9a5d78;
+    -fx-font-size: 13px;
+    -fx-background-color: #fff3f8;
+    -fx-background-radius: 12px;
+    -fx-border-color: #f3c2d6;
+    -fx-border-radius: 12px;
+    -fx-border-width: 1.6px;
+    -fx-padding: 8 12 8 12;
+}
