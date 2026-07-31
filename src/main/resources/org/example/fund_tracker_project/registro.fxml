@@ -13,81 +13,82 @@
             stylesheets="@login.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.fund_tracker_project.controller.RegistroController">
+            fx:controller="org.example.fund_tracker_project.controller.RegistroController"
+            styleClass="root-container">
 
     <children>
+
         <VBox alignment="CENTER"
               spacing="16.0"
               AnchorPane.topAnchor="0.0"
               AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0"
-              styleClass="root-container">
+              AnchorPane.rightAnchor="0.0">
 
             <children>
-                <Label text="Fund Tracker Project" styleClass="project-title,register-title"/>
+                <Label text="Fund Tracker Project" styleClass="register-title"/>
 
                 <VBox alignment="CENTER"
                       spacing="10.0"
                       maxWidth="520.0"
-                      styleClass="form-box,register-form-box">
+                      styleClass="form-box">
                     <padding>
                         <Insets top="26.0" right="42.0" bottom="26.0" left="42.0"/>
                     </padding>
 
                     <children>
-                        <VBox alignment="CENTER_LEFT" spacing="4.0" maxWidth="360.0">
+                        <VBox alignment="CENTER" spacing="4.0" maxWidth="360.0">
                             <children>
                                 <Label text="Nombre" styleClass="form-label"/>
                                 <TextField fx:id="txtNombre"
                                            promptText="Introduce tu nombre"
                                            prefWidth="360.0"
                                            prefHeight="42.0"
-                                           styleClass="input-field,register-input"/>
+                                           styleClass="input-field"/>
                             </children>
                         </VBox>
 
-                        <VBox alignment="CENTER_LEFT" spacing="4.0" maxWidth="360.0">
+                        <VBox alignment="CENTER" spacing="4.0" maxWidth="360.0">
                             <children>
                                 <Label text="Apellidos" styleClass="form-label"/>
                                 <TextField fx:id="txtApellidos"
                                            promptText="Introduce tus apellidos"
                                            prefWidth="360.0"
                                            prefHeight="42.0"
-                                           styleClass="input-field,register-input"/>
+                                           styleClass="input-field"/>
                             </children>
                         </VBox>
 
-                        <VBox alignment="CENTER_LEFT" spacing="4.0" maxWidth="360.0">
+                        <VBox alignment="CENTER" spacing="4.0" maxWidth="360.0">
                             <children>
                                 <Label text="DNI" styleClass="form-label"/>
                                 <TextField fx:id="txtDni"
                                            promptText="Introduce tu DNI"
                                            prefWidth="360.0"
                                            prefHeight="42.0"
-                                           styleClass="input-field,register-input"/>
+                                           styleClass="input-field"/>
                             </children>
                         </VBox>
 
-                        <VBox alignment="CENTER_LEFT" spacing="4.0" maxWidth="360.0">
+                        <VBox alignment="CENTER" spacing="4.0" maxWidth="360.0">
                             <children>
                                 <Label text="Email" styleClass="form-label"/>
                                 <TextField fx:id="txtEmail"
                                            promptText="Introduce tu email"
                                            prefWidth="360.0"
                                            prefHeight="42.0"
-                                           styleClass="input-field,register-input"/>
+                                           styleClass="input-field"/>
                             </children>
                         </VBox>
 
-                        <VBox alignment="CENTER_LEFT" spacing="4.0" maxWidth="360.0">
+                        <VBox alignment="CENTER" spacing="4.0" maxWidth="360.0">
                             <children>
                                 <Label text="Contraseña" styleClass="form-label"/>
                                 <PasswordField fx:id="txtPassword"
                                                promptText="Introduce tu contraseña"
                                                prefWidth="360.0"
                                                prefHeight="42.0"
-                                               styleClass="input-field,register-input"/>
+                                               styleClass="input-field"/>
                             </children>
                         </VBox>
 
@@ -95,7 +96,7 @@
                                 text="Registrarse"
                                 prefWidth="300.0"
                                 prefHeight="42.0"
-                                styleClass="login-button,register-button"/>
+                                styleClass="login-button"/>
 
                         <Label fx:id="lblMensaje"
                                text=""

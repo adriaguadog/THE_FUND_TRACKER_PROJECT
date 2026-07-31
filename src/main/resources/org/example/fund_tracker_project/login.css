@@ -10,11 +10,15 @@
 }
 
 .register-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3f748d;
+    -fx-effect: dropshadow(gaussian, rgba(59, 150, 182, 0.22), 14, 0.2, 0, 2);
     -fx-font-size: 22px;
 }
 
 .form-box {
-    -fx-background-color: rgba(255, 255, 255, 0.95);
+    -fx-background-color: white;
     -fx-background-radius: 24px;
     -fx-border-radius: 24px;
     -fx-border-color: #d9edf0;
@@ -22,14 +26,11 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 24, 0.2, 0, 8);
 }
 
-.register-form-box {
-    -fx-background-color: rgba(255, 255, 255, 0.97);
-}
-
 .form-label {
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-text-fill: #4b8fa8;
+    -fx-alignment: center;
 }
 
 .input-field {
@@ -46,13 +47,16 @@
 
 .input-field:hover {
     -fx-border-color: linear-gradient(to right, #54d3c9, #dced9d);
+    -fx-background-color: #fffdf8;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
 }
 
 .input-field:focused {
     -fx-border-color: linear-gradient(to right, #49d2c7, #d8e994);
-    -fx-border-width: 1.4px;
+    -fx-border-width: 2px;
     -fx-background-color: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(99, 217, 208, 0.22), 10, 0.2, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(99, 217, 208, 0.25), 10, 0.2, 0, 0);
 }
 
 .login-button {
@@ -72,6 +76,16 @@
     -fx-background-color: linear-gradient(to right, #70d1ff, #6bc8d0, #82dfaa);
     -fx-border-color: #f7d95d;
     -fx-border-width: 2.2px;
+    -fx-effect: dropshadow(gaussian, rgba(128, 206, 214, 0.30), 14, 0.2, 0, 4);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.login-button:focused {
+    -fx-background-color: linear-gradient(to right, #76d4ff, #74cbd3, #89e1b0);
+    -fx-border-color: #f7d95d;
+    -fx-border-width: 2.2px;
+    -fx-effect: dropshadow(gaussian, rgba(126, 214, 231, 0.35), 14, 0.2, 0, 0);
 }
 
 .login-button:pressed {
@@ -84,10 +98,18 @@
     -fx-font-size: 13px;
     -fx-font-weight: bold;
     -fx-border-color: transparent;
+    -fx-padding: 4 6 4 6;
 }
 
 .register-link:hover {
     -fx-text-fill: #74aee3;
+    -fx-underline: true;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.register-link:focused {
+    -fx-text-fill: #5d9fd3;
     -fx-underline: true;
 }
 

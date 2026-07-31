@@ -13,7 +13,8 @@
             stylesheets="@login.css"
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="org.example.fund_tracker_project.controller.LoginController">
+            fx:controller="org.example.fund_tracker_project.controller.LoginController"
+            styleClass="root-container">
 
     <children>
         <VBox alignment="CENTER"
@@ -21,13 +22,15 @@
               AnchorPane.topAnchor="0.0"
               AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0"
-              styleClass="root-container">
+              AnchorPane.rightAnchor="0.0">
 
             <children>
                 <Label text="Fund Tracker Project" styleClass="project-title"/>
 
-                <VBox alignment="CENTER" spacing="12.0" maxWidth="340.0" styleClass="form-box">
+                <VBox alignment="CENTER"
+                      spacing="12.0"
+                      maxWidth="340.0"
+                      styleClass="form-box">
                     <padding>
                         <Insets top="30.0" right="30.0" bottom="30.0" left="30.0"/>
                     </padding>

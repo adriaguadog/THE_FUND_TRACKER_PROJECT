@@ -122,6 +122,35 @@ public class UsuarioDao {
         return null;
     }
 
+    public Usuario buscarPorEmail(String emailIntroducido) throws SQLException {
+        String query=String.format("SELECT * FROM %s WHERE %s= ?",
+                TAB_USUARIOS,
+                COL_USUARIO_EMAIL
+        );
+
+        try (PreparedStatement preparedStatement=connection.prepareStatement(query)){
+
+            preparedStatement.setString(1, emailIntroducido);
+            try(ResultSet resultSet= preparedStatement.executeQuery()) {
+
+                if (resultSet.next()) {
+                    Usuario usuario = new Usuario();
+                    usuario.setIdUsuario(resultSet.getLong(COL_USUARIO_ID));
+                    usuario.setNombre(resultSet.getString(COL_USUARIO_NOMBRE));
+                    usuario.setApellidos(resultSet.getString(COL_USUARIO_APELLIDOS));
+                    usuario.setDni(resultSet.getString(COL_USUARIO_DNI));
+                    usuario.setContrasenha(resultSet.getString(COL_USUARIO_CONTRASENHA));
+                    usuario.setEmail(resultSet.getString(COL_USUARIO_EMAIL));
+
+                    return usuario;
+                }
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error de conexion con la base de datos",e);
+        }
+        return null;
+    }
+
     public ArrayList<Usuario> listarTodos() throws SQLException {
         ArrayList <Usuario> listaUsuarios= new ArrayList<>();
         String query=String.format("SELECT * FROM %s ",

@@ -1,5 +1,7 @@
 package org.example.fund_tracker_project.database;
 
+import org.example.fund_tracker_project.service.AlertCreation;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -17,7 +19,8 @@ public class DBConnection {
         try {
             connection= DriverManager.getConnection(URL, user, password);
         } catch (SQLException e) {
-            System.out.println("error en la conexion a la base de datos");            }
+            AlertCreation.crearFallo("Error", "Error de conexion a la base de datos");
+        }
     }
 
     //tiene que ser static para poder acceder

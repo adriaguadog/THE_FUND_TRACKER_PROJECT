@@ -21,7 +21,7 @@ public class AlertCreation {
     }
 
     public static void crearWarning (String titulo, String contenido){
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        Alert alert=new Alert(Alert.AlertType.WARNING);
         alert.setHeaderText(null); //para que no salgan cabeceras raras
         alert.setTitle(titulo);
         alert.setContentText(contenido);

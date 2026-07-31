@@ -53,21 +53,27 @@ public class LoginController implements Initializable {
 
     private void actions() {
         btnLogin.setOnAction(event -> {
-                    try {
-                        Usuario usuario = usuarioDao.hacerLogin(txtEmail.getText().trim(), txtPassword.getText().trim());
-                        if (usuario==null){
-                            AlertCreation.crearInformacion("Credenciales incorrectas", "Mail o contrasenha incorrectos");
-                        }else{
-                            //TODO ABRIR PANTALLA PRINCIPAL
+                    if (txtEmail.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+                        AlertCreation.crearWarning("Campos incompletos", "Debe rellenar todos los campos");
+
+                    } else {
+                        try {
+                            Usuario usuario = usuarioDao.hacerLogin(txtEmail.getText().trim(), txtPassword.getText().trim());
+                            if (usuario == null) {
+                                AlertCreation.crearInformacion("Credenciales incorrectas", "Mail o contrasenha incorrectos");
+                            } else {
+                                //TODO ABRIR PANTALLA PRINCIPAL
+                            }
+                        } catch (SQLException e) {
+                            AlertCreation.crearFallo("Error", "No se pudo conectar con la base de datos");
                         }
-                    } catch (SQLException e) {
-                        AlertCreation.crearFallo("Error", "No se pudo conectar con la base de datos");
                     }
                 }
                        );
+
         linkRegistro.setOnAction(event -> {
             try {
-                SceneCreation.crearEscena("/org/example/fund_tracker_project/registro.fxml",btnLogin);
+                SceneCreation.crearEscena("/org/example/fund_tracker_project/registro.fxml",btnLogin, "Pantalla de registro");
             } catch (IOException e) {
                 AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
             }

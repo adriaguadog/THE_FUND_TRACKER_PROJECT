@@ -10,10 +10,11 @@ import java.io.IOException;
 
 public class SceneCreation {
 
-    public static void crearEscena(String rutaVista, Node nodoActual) throws IOException { //el nodo es cualquier elemento de la vista actual
+    public static void crearEscena(String rutaVista, Node nodoActual, String titulo) throws IOException { //el nodo es cualquier elemento de la vista actual
             FXMLLoader fxmlLoader= new FXMLLoader(HelloApplication.class.getResource(rutaVista));
             Scene scene=new Scene(fxmlLoader.load());
             Stage stage=(Stage)(nodoActual.getScene().getWindow()); //cojo la ventana actual
+            stage.setTitle(titulo);
             stage.setScene(scene);
             stage.show();
         }
