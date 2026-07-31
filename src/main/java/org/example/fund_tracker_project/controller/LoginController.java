@@ -10,7 +10,9 @@ import javafx.scene.control.TextField;
 import org.example.fund_tracker_project.dao.UsuarioDao;
 import org.example.fund_tracker_project.model.Usuario;
 import org.example.fund_tracker_project.service.AlertCreation;
+import org.example.fund_tracker_project.service.SceneCreation;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -64,7 +66,11 @@ public class LoginController implements Initializable {
                 }
                        );
         linkRegistro.setOnAction(event -> {
-                //TODO ABRIR PANTALLA DE REGISTRO
+            try {
+                SceneCreation.crearEscena("/org/example/fund_tracker_project/registro.fxml",btnLogin);
+            } catch (IOException e) {
+                AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
+            }
         });
     }
 }
