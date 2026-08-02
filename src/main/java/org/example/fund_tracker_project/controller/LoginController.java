@@ -36,6 +36,8 @@ public class LoginController implements Initializable {
 
         private UsuarioDao usuarioDao;
 
+        private Usuario usuarioLogueado;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -45,6 +47,7 @@ public class LoginController implements Initializable {
     }
 
     private void initGUI() {
+        btnLogin.setDefaultButton(true);
     }
 
     private void instances() {
@@ -62,10 +65,13 @@ public class LoginController implements Initializable {
                             if (usuario == null) {
                                 AlertCreation.crearInformacion("Credenciales incorrectas", "Mail o contrasenha incorrectos");
                             } else {
-                                //TODO ABRIR PANTALLA PRINCIPAL
+                                usuarioLogueado=usuario;
+                                SceneCreation.crearEscenaUsuario(btnLogin, "/org/example/fund_tracker_project/usuario.fxml" ,usuarioLogueado);
                             }
                         } catch (SQLException e) {
                             AlertCreation.crearFallo("Error", "No se pudo conectar con la base de datos");
+                        } catch (IOException e) {
+                            AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
                         }
                     }
                 }
@@ -73,7 +79,7 @@ public class LoginController implements Initializable {
 
         linkRegistro.setOnAction(event -> {
             try {
-                SceneCreation.crearEscena("/org/example/fund_tracker_project/registro.fxml",btnLogin, "Pantalla de registro");
+                SceneCreation.crearEscena("/org/example/fund_tracker_project/registro.fxml",linkRegistro, "Pantalla de registro");
             } catch (IOException e) {
                 AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
             }

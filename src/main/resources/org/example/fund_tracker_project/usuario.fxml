@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.fund_tracker_project.controller.UsuarioController"
+            styleClass="root-container"
+            stylesheets="@login.css">
+
+    <children>
+        <VBox AnchorPane.topAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              spacing="20.0"
+              styleClass="main-wrapper"
+              fillWidth="true">
+
+            <padding>
+                <Insets top="32.0" right="40.0" bottom="32.0" left="40.0"/>
+            </padding>
+
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="top-bar">
+                    <children>
+                        <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label fx:id="lblSaludo" text="Hola, Adriana" styleClass="welcome-label"/>
+                                <Label fx:id="lblSubtitulo" text="Resumen de tu cartera" styleClass="subtitle-label"/>
+                            </children>
+                        </VBox>
+
+                        <Hyperlink fx:id="linkCerrarSesion" text="Cerrar sesión" styleClass="logout-link"/>
+                    </children>
+                </HBox>
+
+                <HBox spacing="16.0" styleClass="metrics-row" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox styleClass="metric-card" spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Valor total" styleClass="metric-title"/>
+                                <Label fx:id="lblValorTotal" text="0,00 €" styleClass="metric-value"/>
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="metric-card" spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Rentabilidad acumulada" styleClass="metric-title"/>
+                                <Label fx:id="lblRentabilidadAcumulada" text="0,00 %" styleClass="metric-value"/>
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="metric-card" spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Rentabilidad YTD" styleClass="metric-title"/>
+                                <Label fx:id="lblRentabilidadYtd" text="0,00 %" styleClass="metric-value"/>
+                            </children>
+                        </VBox>
+
+                        <VBox styleClass="metric-card" spacing="6.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="Fondos" styleClass="metric-title"/>
+                                <Label fx:id="lblNumFondos" text="0" styleClass="metric-value"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <HBox spacing="20.0" VBox.vgrow="ALWAYS" styleClass="content-area" prefHeight="500.0">
+                    <children>
+                        <VBox spacing="12.0" prefWidth="764.0" minWidth="764.0" maxWidth="764.0"
+                              VBox.vgrow="ALWAYS" styleClass="panel-card">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" styleClass="panel-header">
+                                    <children>
+                                        <Label text="Tu cartera" styleClass="panel-title" HBox.hgrow="ALWAYS"/>
+                                        <Button fx:id="btnAddFondo" text="+" styleClass="add-button"/>
+                                    </children>
+                                </HBox>
+                                <TableView fx:id="tblCartera" prefWidth="706.0" maxWidth="706.0"
+                                           VBox.vgrow="ALWAYS" styleClass="cartera-table">
+                                    <columns>
+                                        <TableColumn fx:id="colFondo" text="Fondo" prefWidth="220.0"/>
+                                        <TableColumn fx:id="colParticipaciones" text="Participaciones" prefWidth="130.0"/>
+                                        <TableColumn fx:id="colPrecio" text="Precio" prefWidth="110.0"/>
+                                        <TableColumn fx:id="colRentabilidadAcumulada" text="Rent. acumulada" prefWidth="130.0"/>
+                                        <TableColumn fx:id="colRentabilidadYtd" text="Rent. YTD" prefWidth="110.0"/>
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="12.0" minWidth="420.0" HBox.hgrow="ALWAYS"
+                              VBox.vgrow="ALWAYS" styleClass="panel-card">
+                            <children>
+                                <Label text="Evolución de la rentabilidad" styleClass="panel-title"/>
+                                <VBox fx:id="chartContainer" VBox.vgrow="ALWAYS"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

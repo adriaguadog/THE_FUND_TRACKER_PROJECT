@@ -1,125 +1,257 @@
+/* Estética veraniega, delicada y elegante para el login.
+   He reforzado la paleta con tonos pastel más vivos para que la interfaz se sienta alegre,
+   pero mantengo el contraste y la claridad gracias a un fondo suave y a un botón con texto blanco. */
+
 .root-container {
-    -fx-background-color: linear-gradient(to bottom right, #f5f0ff, #eefbff, #f8fff1, #fff6fb);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #f8f0ff 0%,
+    #eef8f8 42%,
+    #fff6d8 100%
+  );
+  -fx-font-family: "Poppins", "Segoe UI", "Arial", sans-serif;
 }
 
-.project-title {
-    -fx-font-size: 44px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #3f748d;
-    -fx-effect: dropshadow(gaussian, rgba(59, 150, 182, 0.22), 14, 0.2, 0, 2);
-}
-
+.project-title,
 .register-title {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #3f748d;
-    -fx-effect: dropshadow(gaussian, rgba(59, 150, 182, 0.22), 14, 0.2, 0, 2);
-    -fx-font-size: 22px;
+  -fx-font-size: 42px;
+  -fx-font-weight: 800;
+  -fx-text-fill: #4d7c7f;
+  -fx-effect: dropshadow(gaussian, rgba(77, 124, 127, 0.16), 10, 0.25, 0, 2);
 }
 
 .form-box {
-    -fx-background-color: white;
-    -fx-background-radius: 24px;
-    -fx-border-radius: 24px;
-    -fx-border-color: #d9edf0;
-    -fx-border-width: 1.4px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.10), 24, 0.2, 0, 8);
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.98),
+    rgba(248, 252, 255, 0.95)
+  );
+  -fx-background-radius: 24px;
+  -fx-border-radius: 24px;
+  -fx-border-color: #dfe8e8;
+  -fx-border-width: 1.2px;
+  -fx-effect: dropshadow(gaussian, rgba(80, 100, 115, 0.16), 24, 0.2, 0, 10);
 }
 
 .form-label {
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #4b8fa8;
-    -fx-alignment: center;
+  -fx-font-size: 13px;
+  -fx-font-weight: 700;
+  -fx-text-fill: #56636c;
 }
 
+/* Los campos mantienen un estado base limpio y muy legible.
+   Evito que aparezcan con sombras o bordes más intensos por defecto al cargar la pantalla. */
 .input-field {
-    -fx-background-color: #fffefb;
-    -fx-background-radius: 18px;
-    -fx-border-radius: 18px;
-    -fx-border-width: 2px;
-    -fx-border-color: linear-gradient(to right, #63d9d0, #e5f3af);
-    -fx-font-size: 14px;
-    -fx-text-fill: #2f4f56;
-    -fx-prompt-text-fill: #8da8b0;
-    -fx-padding: 0 14 0 14;
+  -fx-background-color: #fffdfa;
+  -fx-background-radius: 16px;
+  -fx-border-radius: 16px;
+  -fx-border-width: 1.2px;
+  -fx-border-color: #8eb3b5;
+  -fx-font-size: 14px;
+  -fx-text-fill: #2f2f2f;
+  -fx-prompt-text-fill: #8a939c;
+  -fx-padding: 0 14 0 14;
+  -fx-effect: none;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
 }
 
-.input-field:hover {
-    -fx-border-color: linear-gradient(to right, #54d3c9, #dced9d);
-    -fx-background-color: #fffdf8;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-}
-
+.input-field:hover,
+.input-field:pressed,
 .input-field:focused {
-    -fx-border-color: linear-gradient(to right, #49d2c7, #d8e994);
-    -fx-border-width: 2px;
-    -fx-background-color: #ffffff;
-    -fx-effect: dropshadow(gaussian, rgba(99, 217, 208, 0.25), 10, 0.2, 0, 0);
+  -fx-border-color: #8eb3b5;
+  -fx-background-color: #fffdfa;
+  -fx-scale-x: 1.05;
+  -fx-scale-y: 1.05;
+  -fx-effect: none;
 }
 
+/* El botón principal ahora tiene un tono pastel sólido, más sobrio y elegante.
+   Mantengo el texto blanco y un borde contrastado para que destaque sin resultar rosa. */
 .login-button {
-    -fx-background-color: linear-gradient(to right, #82d8ff, #80ced6, #95e7b8);
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 999px;
-    -fx-border-radius: 999px;
-    -fx-border-color: #f9d976;
-    -fx-border-width: 2px;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(128, 206, 214, 0.24), 12, 0.2, 0, 4);
+  -fx-background-color: #9ed0c7;
+  -fx-text-fill: #ffffff;
+  -fx-font-family: "Poppins", "Segoe UI", "Arial", sans-serif;
+  -fx-font-size: 15px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 999px;
+  -fx-border-radius: 999px;
+  -fx-border-color: #6f9d93;
+  -fx-border-width: 1.2px;
+  -fx-cursor: hand;
+  -fx-effect: dropshadow(gaussian, rgba(92, 112, 110, 0.16), 10, 0.2, 0, 3);
 }
 
 .login-button:hover {
-    -fx-background-color: linear-gradient(to right, #70d1ff, #6bc8d0, #82dfaa);
-    -fx-border-color: #f7d95d;
-    -fx-border-width: 2.2px;
-    -fx-effect: dropshadow(gaussian, rgba(128, 206, 214, 0.30), 14, 0.2, 0, 4);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
+  -fx-background-color: #8fc2b8;
+  -fx-text-fill: #ffffff;
+  -fx-scale-x: 1.03;
+  -fx-scale-y: 1.03;
+  -fx-effect: dropshadow(gaussian, rgba(92, 112, 110, 0.2), 12, 0.2, 0, 4);
 }
 
-.login-button:focused {
-    -fx-background-color: linear-gradient(to right, #76d4ff, #74cbd3, #89e1b0);
-    -fx-border-color: #f7d95d;
-    -fx-border-width: 2.2px;
-    -fx-effect: dropshadow(gaussian, rgba(126, 214, 231, 0.35), 14, 0.2, 0, 0);
-}
-
+.login-button:focused,
 .login-button:pressed {
-    -fx-background-color: linear-gradient(to right, #5ec6f8, #59bcc5, #71d79b);
-    -fx-border-color: #efd04c;
+  -fx-background-color: #86b7ac;
+  -fx-text-fill: #ffffff;
+  -fx-border-color: #5f8b80;
+  -fx-effect: dropshadow(gaussian, rgba(92, 112, 110, 0.16), 8, 0.2, 0, 2);
 }
 
 .register-link {
-    -fx-text-fill: #4b8fa8;
-    -fx-font-size: 13px;
-    -fx-font-weight: bold;
-    -fx-border-color: transparent;
-    -fx-padding: 4 6 4 6;
+  -fx-text-fill: #6f8f89;
+  -fx-font-size: 13px;
+  -fx-font-weight: 700;
+  -fx-border-color: transparent;
+  -fx-padding: 4 6 4 6;
 }
 
 .register-link:hover {
-    -fx-text-fill: #74aee3;
-    -fx-underline: true;
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-}
-
-.register-link:focused {
-    -fx-text-fill: #5d9fd3;
-    -fx-underline: true;
+  -fx-text-fill: #87a9a2;
+  -fx-underline: true;
 }
 
 .error-label {
-    -fx-text-fill: #9a5d78;
-    -fx-font-size: 13px;
-    -fx-background-color: #fff3f8;
-    -fx-background-radius: 12px;
-    -fx-border-color: #f3c2d6;
-    -fx-border-radius: 12px;
-    -fx-border-width: 1.6px;
-    -fx-padding: 8 12 8 12;
+  -fx-text-fill: #9f4b63;
+  -fx-font-size: 13px;
+  -fx-background-color: #fff4f7;
+  -fx-background-radius: 12px;
+  -fx-border-color: #f3c9d6;
+  -fx-border-radius: 12px;
+  -fx-border-width: 1.2px;
+  -fx-padding: 8 12 8 12;
+}
+
+/* Estilo coherente para la vista de usuario y la cartera. */
+.main-wrapper {
+  -fx-background-color: transparent;
+  -fx-alignment: center;
+}
+
+.top-bar {
+  -fx-background-color: rgba(255, 255, 255, 0.9);
+  -fx-background-radius: 20px;
+  -fx-border-radius: 20px;
+  -fx-border-color: #e2ebea;
+  -fx-border-width: 1.1px;
+  -fx-padding: 18px 20px 18px 20px;
+  -fx-effect: dropshadow(gaussian, rgba(80, 100, 115, 0.14), 18, 0.2, 0, 6);
+}
+
+.welcome-label {
+  -fx-text-fill: #4d7c7f;
+  -fx-font-size: 24px;
+  -fx-font-weight: 800;
+}
+
+.subtitle-label {
+  -fx-text-fill: #5f6872;
+  -fx-font-size: 13px;
+  -fx-font-weight: 600;
+}
+
+.metric-card,
+.panel-card {
+  -fx-background-color: linear-gradient(
+    to bottom right,
+    #ffffff 0%,
+    #fcfdff 100%
+  );
+  -fx-background-radius: 18px;
+  -fx-border-radius: 18px;
+  -fx-border-color: #e4eceb;
+  -fx-border-width: 1.1px;
+  -fx-padding: 16px;
+  -fx-effect: dropshadow(gaussian, rgba(80, 100, 115, 0.12), 18, 0.2, 0, 8);
+}
+
+.metric-card:hover,
+.panel-card:hover {
+  -fx-scale-x: 1.01;
+  -fx-scale-y: 1.01;
+  -fx-effect: dropshadow(gaussian, rgba(80, 100, 115, 0.18), 22, 0.2, 0, 10);
+}
+
+.metric-title {
+  -fx-text-fill: #5f6872;
+  -fx-font-size: 12px;
+  -fx-font-weight: 700;
+}
+
+.metric-value {
+  -fx-text-fill: #2f2f2f;
+  -fx-font-size: 22px;
+  -fx-font-weight: 800;
+}
+
+.panel-title {
+  -fx-text-fill: #4d7c7f;
+  -fx-font-size: 16px;
+  -fx-font-weight: 800;
+}
+
+.panel-header {
+  -fx-alignment: center-left;
+  -fx-spacing: 10px;
+}
+
+.add-button {
+  -fx-background-color: #9ed0c7;
+  -fx-text-fill: #ffffff;
+  -fx-font-size: 20px;
+  -fx-font-weight: bold;
+  -fx-background-radius: 999px;
+  -fx-border-radius: 999px;
+  -fx-border-color: #6f9d93;
+  -fx-border-width: 1.2px;
+  -fx-padding: 8px 12px 8px 12px;
+}
+
+.add-button:hover {
+  -fx-background-color: #8fc2b8;
+}
+
+.logout-link {
+  -fx-text-fill: #5f7f82;
+  -fx-font-size: 13px;
+  -fx-font-weight: 700;
+}
+
+.logout-link:hover {
+  -fx-text-fill: #4d7c7f;
+}
+
+.cartera-table {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+  -fx-padding: 0;
+}
+
+.cartera-table .column-header-background {
+  -fx-background-color: #f2f7f7;
+}
+
+.cartera-table .column-header,
+.cartera-table .column-header .label {
+  -fx-text-fill: #4d7c7f;
+  -fx-font-weight: 800;
+}
+
+.cartera-table .table-row-cell {
+  -fx-background-color: #ffffff;
+  -fx-border-color: transparent transparent #eef3f2 transparent;
+  -fx-border-width: 0 0 1 0;
+}
+
+.cartera-table .table-row-cell:selected {
+  -fx-background-color: #eef8f4;
+}
+
+.cartera-table .table-cell {
+  -fx-text-fill: #2f2f2f;
+  -fx-padding: 8px 10px 8px 10px;
+}
+
+#chartContainer {
+  -fx-padding: 4px;
 }
