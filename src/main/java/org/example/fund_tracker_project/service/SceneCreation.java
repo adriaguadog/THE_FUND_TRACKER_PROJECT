@@ -25,19 +25,41 @@ public class SceneCreation {
         }
 
     public static void crearEscenaUsuario(Node nodoActual, String rutaVista, Usuario usuario) throws IOException {
+        // 1. Crear el loader con la ruta del FXML
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(rutaVista));
-        Parent root = fxmlLoader.load();
+
+        // 2. Cargar el FXML y crear la escena
+        Scene scene=new Scene(fxmlLoader.load());
+
+        // 3. Pedir el controller de la vista Usuario
         UsuarioController controller = fxmlLoader.getController();
+
+        // 4. Pasar el usuario al controller
         controller.setUsuario(usuario);
 
+        // 5. Obtener el Stage actual a partir del nodo
         Stage stage = (Stage) nodoActual.getScene().getWindow();
+
+        // 6. Obtener los límites de la pantalla principal
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
+
+        // 7. Configurar título de la ventana
         stage.setTitle("Usuario");
-        stage.setScene(new Scene(root, bounds.getWidth(), bounds.getHeight()));
+
+        // 8. Asignar la nueva escena al stage
+        stage.setScene(scene);
+
+        // 9. Colocar la ventana en las coordenadas mínimas de la pantalla
         stage.setX(bounds.getMinX());
         stage.setY(bounds.getMinY());
+
+        // 10. Maximizar la ventana
         stage.setMaximized(true);
+
+        // 11. Centrar (no es muy necesario si está maximizada, pero no molesta)
         stage.centerOnScreen();
+
+        // 12. Mostrar la ventana
         stage.show();
     }
 

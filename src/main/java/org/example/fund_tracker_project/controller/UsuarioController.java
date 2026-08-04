@@ -13,8 +13,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import org.example.fund_tracker_project.model.LineaCartera;
 import org.example.fund_tracker_project.model.Usuario;
+import org.example.fund_tracker_project.service.AlertCreation;
+import org.example.fund_tracker_project.service.SceneCreation;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Year;
@@ -51,7 +55,7 @@ public class UsuarioController implements Initializable {
     private Hyperlink linkCerrarSesion;
 
     @FXML
-    private TableView<?> tblCartera;
+    private TableView<LineaCartera> tblCartera;
 
     @FXML
     private TableColumn<?, ?> colFondo;
@@ -101,6 +105,7 @@ public class UsuarioController implements Initializable {
         chartRentabilidad.setTitle("Rentabilidad " + Year.now().getValue());
         chartRentabilidad.setAnimated(false);
         chartRentabilidad.setLegendVisible(false);
+        //anhado clase css
         chartRentabilidad.getStyleClass().add("rentabilidad-chart");
         chartRentabilidad.setCreateSymbols(false);
         chartRentabilidad.setMaxWidth(Double.MAX_VALUE);
@@ -129,6 +134,13 @@ public class UsuarioController implements Initializable {
     }
 
     private void actions() {
+        linkCerrarSesion.setOnAction(event -> {
+            try {
+                SceneCreation.crearEscena("/org/example/fund_tracker_project/login.fxml", linkCerrarSesion, "Login");
+            } catch (IOException e) {
+                AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
+            }
+        });
     }
 
     public void setUsuario(Usuario usuario) {
