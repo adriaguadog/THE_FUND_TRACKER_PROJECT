@@ -13,7 +13,7 @@ public class DBConnection {
 
 
     private static void createConnection(){
-        String URL = "jdbc:mysql://localhost:3306/fund_tracker";
+        String URL = "jdbc:mysql://localhost:3306/FUND_TRACKER_PROJECT";
         String user = "root";
         String password = "";
         try {

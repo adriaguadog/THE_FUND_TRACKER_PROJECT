@@ -19,27 +19,42 @@ public class GestorAPI {
 
     public List<Activo> llamarAPI() throws IOException, InterruptedException {
         String url = "https://api.twelvedata.com/etf?country=United%20States&source=docs";
-        HttpRequest request= HttpRequest.newBuilder()
+
+        HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .GET()
                 .build();
-        HttpResponse<String> response= client.send(request,HttpResponse.BodyHandlers.ofString());
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() != 200) {
+            throw new IOException("Error en Twelve Data: status " + response.statusCode());
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.body());
-        JsonNode dataNode = root.get("data");
 
-        //mapeo
+        JsonNode dataNode = root.get("data");
+        if (dataNode == null || !dataNode.isArray()) {
+            throw new IOException("Respuesta inesperada: no hay campo 'data' o no es un array");
+        }
+
         List<Activo> activos =
                 mapper.readValue(dataNode.toString(),
                         new TypeReference<List<Activo>>() {});
+
         for (Activo a : activos) {
             a.setTipoActivo(TipoActivo.ETF);
+            a.setIsin(null);
         }
         return activos;
     }
 
+
     public GestorAPI() {
-        client= HttpClient.newHttpClient();
+        this.client = HttpClient.newHttpClient();
     }
 }
+
+

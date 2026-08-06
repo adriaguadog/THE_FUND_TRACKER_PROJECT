@@ -13,6 +13,7 @@ public interface SchemDB {
         public static final String COL_ACTIVO_NOMBRE = "nombre";
         public static final String COL_ACTIVO_GESTORA = "gestora";
         public static final String COL_ACTIVO_ISIN = "isin";
+        public static final String COL_ACTIVO_TICKER = "ticker";
         public static final String COL_ACTIVO_TIPO = "tipo_activo";
 
         // USUARIOS

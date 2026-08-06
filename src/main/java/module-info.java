@@ -13,4 +13,9 @@ module org.example.fund_tracker_project {
     opens org.example.fund_tracker_project to javafx.fxml;
     exports org.example.fund_tracker_project;
     opens org.example.fund_tracker_project.controller to javafx.fxml;
+
+    exports org.example.fund_tracker_project.model;
+    exports org.example.fund_tracker_project.controller;
+    exports org.example.fund_tracker_project.dao;
+    exports org.example.fund_tracker_project.service;
 }

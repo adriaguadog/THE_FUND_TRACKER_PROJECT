@@ -1,17 +1,19 @@
--- fund_tracker.activo definition
+-- fund_tracker_project.activo definition
 
 CREATE TABLE `activo` (
-  `id_activo` bigint(20) NOT NULL,
-  `nombre` varchar(60) NOT NULL,
-  `gestora` varchar(50) NOT NULL,
-  `isin` varchar(30) NOT NULL,
-  `tipo_activo` enum('FONDO','ETF','ACCION') NOT NULL,
+  `id_activo` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(150) DEFAULT NULL,
+  `gestora` varchar(50) DEFAULT NULL,
+  `isin` varchar(30) DEFAULT NULL,
+  `tipo_activo` enum('FONDO','ETF','ACCION') DEFAULT NULL,
+  `ticker` varchar(20) NOT NULL,
   PRIMARY KEY (`id_activo`),
-  UNIQUE KEY `activo_isin` (`isin`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `ticker` (`ticker`),
+  UNIQUE KEY `isin` (`isin`)
+) ENGINE=InnoDB AUTO_INCREMENT=16736 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- fund_tracker.usuarios definition
+-- fund_tracker_project.usuarios definition
 
 CREATE TABLE `usuarios` (
   `nombre` varchar(30) NOT NULL,
@@ -23,10 +25,10 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `usuarios_dni` (`dni`),
   UNIQUE KEY `usuarios_email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- fund_tracker.linea_cartera definition
+-- fund_tracker_project.linea_cartera definition
 
 CREATE TABLE `linea_cartera` (
   `id_usuario` bigint(20) NOT NULL,
@@ -40,7 +42,7 @@ CREATE TABLE `linea_cartera` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- fund_tracker.operacion definition
+-- fund_tracker_project.operacion definition
 
 CREATE TABLE `operacion` (
   `id_operacion` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -55,4 +57,15 @@ CREATE TABLE `operacion` (
   PRIMARY KEY (`id_operacion`),
   KEY `fk_operacion_linea_cartera` (`id_usuario`,`id_activo`),
   CONSTRAINT `fk_operacion_linea_cartera` FOREIGN KEY (`id_usuario`, `id_activo`) REFERENCES `linea_cartera` (`id_usuario`, `id_activo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- fund_tracker_project.precio_activo definition
+
+CREATE TABLE `precio_activo` (
+  `id_activo` bigint(20) NOT NULL,
+  `fecha` date NOT NULL,
+  `precio` decimal(15,4) NOT NULL,
+  PRIMARY KEY (`id_activo`,`fecha`),
+  CONSTRAINT `fk_precio_activo_activo` FOREIGN KEY (`id_activo`) REFERENCES `activo` (`id_activo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
