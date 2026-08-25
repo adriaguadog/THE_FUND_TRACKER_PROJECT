@@ -26,12 +26,15 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class UsuarioController implements Initializable {
+
+    @FXML
+    public Button btnNuevoFondo;
+
+    @FXML
+    public Button btnCerrarBuscador;
 
     @FXML
     private Label lblSaludo;
@@ -145,6 +148,7 @@ public class UsuarioController implements Initializable {
 
         try {
             activosObservable.setAll(crearCatalogo());
+            System.out.println("Activos en la lista: " + activosObservable.size());
 
             // Configurar la ListView con la lista filtrada
             listViewActivos.setItems(activosFiltrados);
@@ -219,11 +223,26 @@ public class UsuarioController implements Initializable {
 
             btnAddFondo.setOnAction(event -> {
                 stackBuscador.setVisible(true);
-                stackBuscador.setManaged(true);
 
                 txtBuscarActivo.requestFocus();
                 txtBuscarActivo.clear();
+                listViewActivos.refresh();
             });
+
+            btnNuevoFondo.setOnAction(event -> {
+                    TextInputDialog dialog = new TextInputDialog();
+                    dialog.setTitle("Nuevo fondo");
+                    dialog.setHeaderText("Introduce el ticker del fondo o ETF");
+                    dialog.setContentText("Ticker:");
+                    dialog.initOwner(btnNuevoFondo.getScene().getWindow());
+                    Optional<String> resultado = dialog.showAndWait();
+
+                    resultado.ifPresent(ticker -> {
+                    System.out.println("Ticker introducido correctamente: " + ticker);
+                });
+            });
+
+            btnCerrarBuscador.setOnAction(event -> ocultarBuscador());
         }
 
 
@@ -232,7 +251,11 @@ public class UsuarioController implements Initializable {
             GestorAPI gestorAPI = new GestorAPI();
             List<Activo> listaActivos = gestorAPI.llamarAPI();
             for (Activo activo : listaActivos) {
-                activoDao.insertarActivo(activo);
+                try {
+                    activoDao.insertarActivo(activo);
+                } catch (SQLException e) {
+                    // fila duplicada o inválida: se salta y se sigue con la siguiente
+                }
             }
             return listaActivos;
         } else {
@@ -249,7 +272,6 @@ public class UsuarioController implements Initializable {
 
     private void ocultarBuscador() {
         stackBuscador.setVisible(false);
-        stackBuscador.setManaged(false);
         listViewActivos.getSelectionModel().clearSelection();
         txtBuscarActivo.clear();
     }

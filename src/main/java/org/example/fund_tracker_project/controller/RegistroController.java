@@ -7,6 +7,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.example.fund_tracker_project.HelloApplication;
 import org.example.fund_tracker_project.dao.UsuarioDao;
 import org.example.fund_tracker_project.model.Usuario;
 import org.example.fund_tracker_project.service.AlertCreation;
@@ -81,16 +82,28 @@ public class RegistroController implements Initializable {
                 try {
                     if ((usuarioDao.buscarPorEmail(email)!=null)||(usuarioDao.buscarPorDni(dni)!=null)){
                         AlertCreation.crearWarning("Usuario ya registrado", "Este usuario ya tiene una cuenta");
+                        borrarCampos();
                     }else {
                         usuarioDao.darDeAlta(new Usuario(nombre, apellidos, dni, email, contrasenha));
                         AlertCreation.crearInformacion("Registro completado", "Usuario creado correctamente");
-                    }
+                        SceneCreation.crearEscena("/org/example/fund_tracker_project/login.fxml",txtNombre, "Login");
+                        }
                 } catch (SQLException e) {
                     AlertCreation.crearFallo("Error", "Error de conexion a la base de datos");
+                }catch (IOException e) {
+                    AlertCreation.crearFallo("Error", "No se ha encontrado la vista");
                 }
             }
 
         });
+    }
+
+    public void borrarCampos(){
+        txtNombre.clear();
+        txtApellidos.clear();
+        txtEmail.clear();
+        txtDni.clear();
+        txtPassword.clear();
     }
 }
 

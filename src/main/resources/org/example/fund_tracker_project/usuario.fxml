@@ -91,39 +91,60 @@
                                     </children>
                                 </HBox>
 
-                                <!-- Overlay con StackPane para superposición -->
-                                <StackPane fx:id="stackBuscador"
-                                           alignment="TOP_LEFT"
-                                           visible="false"
-                                           managed="false"
-                                           VBox.vgrow="ALWAYS">
+                                <!-- NUEVO: StackPane que apila tabla (abajo) y buscador (encima) -->
+                                <StackPane VBox.vgrow="ALWAYS">
                                     <children>
-                                        <VBox spacing="8.0" VBox.vgrow="ALWAYS">
-                                            <children>
-                                                <TextField fx:id="txtBuscarActivo"
-                                                           promptText="Buscar fondo por nombre o ticker..."
-                                                           styleClass="buscador-activos"/>
 
-                                                <ListView fx:id="listViewActivos"
-                                                          prefWidth="706.0"
-                                                          maxWidth="706.0"
-                                                          VBox.vgrow="ALWAYS"
-                                                          styleClass="overlay-list"/>
+                                        <!-- La tabla va PRIMERA: es la capa inferior -->
+                                        <TableView fx:id="tblCartera" styleClass="cartera-table">
+                                            <columns>
+                                                <TableColumn fx:id="colFondo" text="Fondo" prefWidth="220.0"/>
+                                                <TableColumn fx:id="colParticipaciones" text="Participaciones" prefWidth="130.0"/>
+                                                <TableColumn fx:id="colPrecio" text="Precio" prefWidth="110.0"/>
+                                                <TableColumn fx:id="colRentabilidadAcumulada" text="Rent. acumulada" prefWidth="130.0"/>
+                                                <TableColumn fx:id="colRentabilidadYtd" text="Rent. YTD" prefWidth="110.0"/>
+                                            </columns>
+                                        </TableView>
+
+                                        <!-- El buscador va DESPUÉS: flota por encima de la tabla -->
+                                        <StackPane fx:id="stackBuscador"
+                                                   visible="false"
+                                                   maxWidth="720.0"
+                                                   maxHeight="380.0"
+                                                   styleClass="buscador-overlay"
+                                                   StackPane.alignment="TOP_CENTER">
+                                            <StackPane.margin>
+                                                <Insets top="8.0"/>
+                                            </StackPane.margin>
+                                            <children>
+                                                <VBox spacing="8.0">
+                                                    <children>
+                                                        <HBox spacing="8.0" alignment="CENTER_LEFT">
+                                                            <children>
+                                                                <TextField fx:id="txtBuscarActivo"
+                                                                           promptText="Buscar fondo por nombre o ticker..."
+                                                                           styleClass="buscador-activos"
+                                                                           HBox.hgrow="ALWAYS"/>
+                                                                <Button fx:id="btnCerrarBuscador" text="✕" styleClass="close-button"/>
+                                                            </children>
+                                                        </HBox>
+
+                                                        <ListView fx:id="listViewActivos"
+                                                                  VBox.vgrow="ALWAYS"
+                                                                  styleClass="overlay-list"/>
+                                                        <HBox alignment="CENTER">
+                                                            <children>
+                                                                <Button fx:id="btnNuevoFondo" text="Nuevo fondo"
+                                                                        maxWidth="200.0" styleClass="secondary-button"/>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </VBox>
                                             </children>
-                                        </VBox>
+                                        </StackPane>
+
                                     </children>
                                 </StackPane>
-
-                                <TableView fx:id="tblCartera" prefWidth="706.0" maxWidth="706.0"
-                                           VBox.vgrow="ALWAYS" styleClass="cartera-table">
-                                    <columns>
-                                        <TableColumn fx:id="colFondo" text="Fondo" prefWidth="220.0"/>
-                                        <TableColumn fx:id="colParticipaciones" text="Participaciones" prefWidth="130.0"/>
-                                        <TableColumn fx:id="colPrecio" text="Precio" prefWidth="110.0"/>
-                                        <TableColumn fx:id="colRentabilidadAcumulada" text="Rent. acumulada" prefWidth="130.0"/>
-                                        <TableColumn fx:id="colRentabilidadYtd" text="Rent. YTD" prefWidth="110.0"/>
-                                    </columns>
-                                </TableView>
                             </children>
                         </VBox>
 
