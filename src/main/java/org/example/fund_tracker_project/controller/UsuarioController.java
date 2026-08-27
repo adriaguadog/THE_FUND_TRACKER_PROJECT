@@ -198,6 +198,7 @@ public class UsuarioController implements Initializable {
             Thread.currentThread().interrupt();
             AlertCreation.crearFallo("Error", "Error en el hilo: " + e.getMessage());
         }
+
     }
 
         private List<String> obtenerMesesDelAnioActual () {
@@ -257,6 +258,7 @@ public class UsuarioController implements Initializable {
                     // fila duplicada o inválida: se salta y se sigue con la siguiente
                 }
             }
+
             return listaActivos;
         } else {
             return activoDao.obtenerTodos();

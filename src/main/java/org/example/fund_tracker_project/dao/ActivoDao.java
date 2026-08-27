@@ -44,30 +44,37 @@ public class ActivoDao {
     }
 
     public void insertarActivo(Activo activo) throws SQLException {
-        if (comprobarActivo(activo) == 0) {
-            String query = String.format("INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?)",
-                    SchemDB.TAB_ACTIVO,
-                    SchemDB.COL_ACTIVO_NOMBRE,
-                    SchemDB.COL_ACTIVO_TIPO,
-                    SchemDB.COL_ACTIVO_GESTORA,
-                    SchemDB.COL_ACTIVO_ISIN,
-                    SchemDB.COL_ACTIVO_TICKER
-            );
+        String query = String.format(
+                "INSERT INTO %s (%s, %s, %s, %s, %s) VALUES (?, ?, ?, ?, ?) " +
+                        "ON DUPLICATE KEY UPDATE %s = ?, %s = ?, %s = ?",
+                SchemDB.TAB_ACTIVO,
+                SchemDB.COL_ACTIVO_NOMBRE,
+                SchemDB.COL_ACTIVO_TIPO,
+                SchemDB.COL_ACTIVO_GESTORA,
+                SchemDB.COL_ACTIVO_ISIN,
+                SchemDB.COL_ACTIVO_TICKER,
+                SchemDB.COL_ACTIVO_NOMBRE,
+                SchemDB.COL_ACTIVO_GESTORA,
+                SchemDB.COL_ACTIVO_TICKER
+        );
 
-            try (PreparedStatement ps = connection.prepareStatement(query)) {
-                ps.setString(1, activo.getNombre());
-                ps.setString(2, activo.getTipoActivo().name());
-                ps.setString(3, activo.getGestora());
-                ps.setString(4, activo.getIsin());
-                ps.setString(5, activo.getTicker());
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, activo.getNombre());
+            ps.setString(2, activo.getTipoActivo().name());
+            ps.setString(3, activo.getGestora());
+            ps.setString(4, activo.getIsin());
+            ps.setString(5, activo.getTicker());
+            ps.setString(6, activo.getNombre());
+            ps.setString(7, activo.getGestora());
+            ps.setString(8, activo.getTicker());
 
-                ps.executeUpdate();
-            }
+            ps.executeUpdate();
         }
     }
 
     public List<Activo> obtenerTodos() throws SQLException {
-        String query = String.format("SELECT * FROM %s", SchemDB.TAB_ACTIVO);
+        String query = String.format("SELECT * FROM %s ORDER BY %s",
+                SchemDB.TAB_ACTIVO, SchemDB.COL_ACTIVO_TICKER);
         List<Activo> lista = new ArrayList<>();
 
         try (PreparedStatement ps = connection.prepareStatement(query);
