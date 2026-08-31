@@ -12,6 +12,10 @@ CREATE TABLE `activo` (
   UNIQUE KEY `isin` (`isin`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16736 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--he anhadido la columna ticker yahoo, exchange y mic_code para poder usar la libreria de yahoo finance y obtener los precios de los activos de forma automatica
+ALTER TABLE activo ADD COLUMN ticker_yahoo varchar(10) DEFAULT NULL,
+ADD COLUMN exchange varchar(50) DEFAULT NULL,
+ADD COLUMN mic_code varchar(10) DEFAULT NULL;
 
 -- fund_tracker_project.usuarios definition
 
@@ -59,6 +63,9 @@ CREATE TABLE `operacion` (
   CONSTRAINT `fk_operacion_linea_cartera` FOREIGN KEY (`id_usuario`, `id_activo`) REFERENCES `linea_cartera` (`id_usuario`, `id_activo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--incluimos estadoOperacion posteriormente
+ALTER TABLE operacion
+ADD COLUMN estado ENUM('CANCELADA', 'EN_PROCESO', 'EJECUTADA') NOT NULL DEFAULT 'EJECUTADA';
 
 -- fund_tracker_project.precio_activo definition
 

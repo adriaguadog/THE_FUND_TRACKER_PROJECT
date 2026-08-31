@@ -15,6 +15,9 @@ public interface SchemDB {
         public static final String COL_ACTIVO_ISIN = "isin";
         public static final String COL_ACTIVO_TICKER = "ticker";
         public static final String COL_ACTIVO_TIPO = "tipo_activo";
+        public static final String COL_ACTIVO_EXCHANGE = "exchange";
+        public static final String COL_ACTIVO_MIC_CODE = "mic_code";
+        public static final String COL_ACTIVO_TICKER_YAHOO = "ticker_yahoo";
 
         // USUARIOS
         public static final String COL_USUARIO_ID = "id_usuario";
@@ -40,5 +43,7 @@ public interface SchemDB {
         public static final String COL_OPERACION_PRECIO_UNITARIO = "precio_unitario";
         public static final String COL_OPERACION_CANTIDAD = "cantidad";
         public static final String COL_OPERACION_RENTABILIDAD = "rentabilidad";
-    }
+        public static final String COL_OPERACION_ESTADO = "estado";
+
+}
 

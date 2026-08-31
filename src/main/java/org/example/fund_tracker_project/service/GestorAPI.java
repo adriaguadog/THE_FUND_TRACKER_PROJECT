@@ -44,9 +44,11 @@ public class GestorAPI {
                 mapper.readValue(dataNode.toString(),
                         new TypeReference<List<Activo>>() {});
 
-        for (Activo a : activos) {
-            a.setTipoActivo(TipoActivo.ETF);
-            a.setIsin(null);
+            for (Activo a : activos) {
+                a.setTipoActivo(TipoActivo.ETF);
+                a.setIsin(null);
+                //anhado ticker de yahoo a partir del hashmap
+                a.setTickerYahoo(GestorYahoo.construirTickerYahoo(a.getTicker(), a.getMicCode()));
         }
         return activos;
     }

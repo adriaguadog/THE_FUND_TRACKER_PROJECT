@@ -2,10 +2,14 @@ package org.example.fund_tracker_project.dao;
 
 import org.example.fund_tracker_project.database.DBConnection;
 import org.example.fund_tracker_project.database.SchemDB;
+import org.example.fund_tracker_project.model.Activo;
 import org.example.fund_tracker_project.model.LineaCartera;
+import org.example.fund_tracker_project.model.Operacion;
+import org.example.fund_tracker_project.model.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LineaCarteraDao {
@@ -40,4 +44,40 @@ public class LineaCarteraDao {
         }
     }
 
-}
+    public void actualizarLineaCartera(Operacion operacion) throws SQLException{
+        String query = String.format(
+                "UPDATE %s SET %s = %s - ?, %s = %s - ? WHERE %s = ? AND %s = ?",
+                SchemDB.TAB_LINEA_CARTERA,
+                SchemDB.COL_LINEA_CARTERA_PARTICIPACIONES, SchemDB.COL_LINEA_CARTERA_PARTICIPACIONES,
+                SchemDB.COL_LINEA_CARTERA_IMPORTE, SchemDB.COL_LINEA_CARTERA_IMPORTE,
+                SchemDB.COL_LINEA_CARTERA_ID_USUARIO,
+                SchemDB.COL_LINEA_CARTERA_ID_ACTIVO
+        );
+
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setDouble(1, operacion.getParticipaciones());
+            ps.setDouble(2, operacion.getImporte());
+            ps.setLong(3, operacion.getIdUsuario());
+            ps.setLong(4, operacion.getIdActivo());
+            ps.executeUpdate();
+        }
+        }
+
+    public void restarLinea(LineaCartera linea) throws SQLException {
+        String query=String. format("UPDATE %s SET %s = %s - ?, %s = %s - ? WHERE %s = ? AND %s = ?",
+                SchemDB.TAB_LINEA_CARTERA,
+                SchemDB.COL_LINEA_CARTERA_PARTICIPACIONES,
+                SchemDB.COL_LINEA_CARTERA_PARTICIPACIONES,
+                SchemDB.COL_LINEA_CARTERA_IMPORTE,
+                SchemDB.COL_LINEA_CARTERA_IMPORTE,
+                SchemDB.COL_LINEA_CARTERA_ID_USUARIO,
+                SchemDB.COL_LINEA_CARTERA_ID_ACTIVO
+                );
+        PreparedStatement ps= connection.prepareStatement(query);
+        ps.setDouble(1, linea.getParticipaciones());
+        ps.setDouble(2, linea.getImporte());
+        ps.setLong(3, linea.getIdUsuario());
+        ps.setLong(4, linea.getIdActivo());
+        ps.executeUpdate();
+    }
+    }

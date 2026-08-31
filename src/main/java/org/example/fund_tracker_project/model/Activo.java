@@ -31,6 +31,14 @@ public class Activo {
     @JsonProperty("symbol")
     private String ticker;
 
+    @JsonProperty("exchange")
+    private String exchange;
+
+    @JsonProperty("mic_code")
+    private String micCode;
+
+    private String tickerYahoo;
+
     public Activo(String ticker) {
         this.ticker = ticker;
     }
