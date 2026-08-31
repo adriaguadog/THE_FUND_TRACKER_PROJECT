@@ -50,6 +50,7 @@ public class GestorAPI {
                 //anhado ticker de yahoo a partir del hashmap
                 a.setTickerYahoo(GestorYahoo.construirTickerYahoo(a.getTicker(), a.getMicCode()));
         }
+
         return activos;
     }
 

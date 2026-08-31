@@ -16,5 +16,13 @@ public class LineaCartera {
     private long idActivo;
     private double importe;
     private double participaciones;
+    private String nombreActivo;
+
+    public LineaCartera(long idUsuario, long idActivo, double importe, double participaciones) {
+        this.idUsuario = idUsuario;
+        this.idActivo = idActivo;
+        this.importe = importe;
+        this.participaciones = participaciones;
+    }
 
 }

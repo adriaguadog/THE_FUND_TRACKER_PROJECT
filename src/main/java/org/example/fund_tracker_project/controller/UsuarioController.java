@@ -1,5 +1,6 @@
 package org.example.fund_tracker_project.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -9,6 +10,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -65,21 +67,6 @@ public class UsuarioController implements Initializable {
     private TableView<LineaCartera> tblCartera;
 
     @FXML
-    private TableColumn<?, ?> colFondo;
-
-    @FXML
-    private TableColumn<?, ?> colParticipaciones;
-
-    @FXML
-    private TableColumn<?, ?> colPrecio;
-
-    @FXML
-    private TableColumn<?, ?> colRentabilidadAcumulada;
-
-    @FXML
-    private TableColumn<?, ?> colRentabilidadYtd;
-
-    @FXML
     private VBox chartContainer;
 
     @FXML
@@ -104,6 +91,13 @@ public class UsuarioController implements Initializable {
 
     private OperacionDao operacionDao;
 
+    //tabla
+    @FXML private TableColumn<LineaCartera, String> colFondo;
+    @FXML private TableColumn<LineaCartera, Double> colParticipaciones;
+    @FXML private TableColumn<LineaCartera, String> colPrecio;
+    @FXML private TableColumn<LineaCartera, String> colRentabilidadAcumulada;
+    @FXML private TableColumn<LineaCartera, String> colRentabilidadYtd;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instances();
@@ -118,8 +112,21 @@ public class UsuarioController implements Initializable {
     }
 
     private void initGUI() {
-        tblCartera.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        //tabla
+        colFondo.prefWidthProperty().bind(tblCartera.widthProperty().multiply(0.44));
+        colParticipaciones.prefWidthProperty().bind(tblCartera.widthProperty().multiply(0.138));
+        colPrecio.prefWidthProperty().bind(tblCartera.widthProperty().multiply(0.14));
+        colRentabilidadAcumulada.prefWidthProperty().bind(tblCartera.widthProperty().multiply(0.153));
+        colRentabilidadYtd.prefWidthProperty().bind(tblCartera.widthProperty().multiply(0.115));
         tblCartera.setPlaceholder(new Label("Aún no tienes fondos en tu cartera"));
+        colFondo.setCellValueFactory(new PropertyValueFactory<>("nombreActivo"));
+        colParticipaciones.setCellValueFactory(new PropertyValueFactory<>("participaciones"));
+        colPrecio.setCellValueFactory(celda -> new SimpleStringProperty(
+                String.format("%.2f", celda.getValue().getImporte() / celda.getValue().getParticipaciones())));
+        colRentabilidadAcumulada.setCellValueFactory(c -> new SimpleStringProperty("—"));
+        colRentabilidadYtd.setCellValueFactory(c -> new SimpleStringProperty("—"));
+
+        //grafico
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Mes");
@@ -275,6 +282,7 @@ public class UsuarioController implements Initializable {
         this.usuario = usuario;
         if (usuario != null) {
             lblSaludo.setText("Hola, " + usuario.getNombre());
+            cargarCartera();
         }
         try {
             operacionDao.obtenerHistoricoUsuario(usuario.getIdUsuario());
@@ -365,6 +373,17 @@ public class UsuarioController implements Initializable {
         }
         }
 
+    private void cargarCartera() {
+        try {
+            List<LineaCartera> lineas = lineaCarteraDao.obtenerLineasUsuario(usuario);
+            tblCartera.getItems().setAll(lineas);
+            lblNumFondos.setText(String.valueOf(lineas.size()));
+            double total = lineas.stream().mapToDouble(LineaCartera::getImporte).sum();
+            lblValorTotal.setText(String.format("%.2f €", total));
+        } catch (SQLException e) {
+            AlertCreation.crearFallo("Error", "No se pudo cargar tu cartera: " + e.getMessage());
+        }
+    }
 
     private void guardarOperacion(Activo activo, LocalDate fecha, TipoOperacion tipo,
                                   String textoParticipaciones, String textoPrecio) {
@@ -428,6 +447,7 @@ public class UsuarioController implements Initializable {
 
             //actualizo el historico
             operacionDao.obtenerHistoricoUsuario(usuario.getIdUsuario());
+            cargarCartera();
         } catch (SQLException e) {
             AlertCreation.crearFallo("Error", "No se pudo guardar la operación: " + e.getMessage());
         }

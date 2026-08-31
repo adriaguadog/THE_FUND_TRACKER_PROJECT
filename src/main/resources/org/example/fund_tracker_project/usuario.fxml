@@ -98,11 +98,11 @@
                                         <!-- La tabla va PRIMERA: es la capa inferior -->
                                         <TableView fx:id="tblCartera" styleClass="cartera-table">
                                             <columns>
-                                                <TableColumn fx:id="colFondo" text="Fondo" prefWidth="220.0"/>
-                                                <TableColumn fx:id="colParticipaciones" text="Participaciones" prefWidth="130.0"/>
-                                                <TableColumn fx:id="colPrecio" text="Precio" prefWidth="110.0"/>
-                                                <TableColumn fx:id="colRentabilidadAcumulada" text="Rent. acumulada" prefWidth="130.0"/>
-                                                <TableColumn fx:id="colRentabilidadYtd" text="Rent. YTD" prefWidth="110.0"/>
+                                                <TableColumn fx:id="colFondo" text="Fondo"/>
+                                                <TableColumn fx:id="colParticipaciones" text="Participaciones" />
+                                                <TableColumn fx:id="colPrecio" text="Precio"/>
+                                                <TableColumn fx:id="colRentabilidadAcumulada" text="Rent. acumulada"/>
+                                                <TableColumn fx:id="colRentabilidadYtd" text="Rent. YTD"/>
                                             </columns>
                                         </TableView>
 

@@ -221,36 +221,7 @@
   -fx-text-fill: #4d7c7f;
 }
 
-.cartera-table {
-  -fx-background-color: transparent;
-  -fx-border-color: transparent;
-  -fx-padding: 0;
-}
 
-.cartera-table .column-header-background {
-  -fx-background-color: #f2f7f7;
-}
-
-.cartera-table .column-header,
-.cartera-table .column-header .label {
-  -fx-text-fill: #4d7c7f;
-  -fx-font-weight: 800;
-}
-
-.cartera-table .table-row-cell {
-  -fx-background-color: #ffffff;
-  -fx-border-color: transparent transparent #eef3f2 transparent;
-  -fx-border-width: 0 0 1 0;
-}
-
-.cartera-table .table-row-cell:selected {
-  -fx-background-color: #eef8f4;
-}
-
-.cartera-table .table-cell {
-  -fx-text-fill: #2f2f2f;
-  -fx-padding: 8px 10px 8px 10px;
-}
 
 #chartContainer {
   -fx-padding: 4px;
@@ -550,4 +521,120 @@
 .date-picker-popup .button:pressed {
     -fx-background-color: #9ed0c7;
     -fx-text-fill: white;
+}
+
+/* ============================================================
+   TABLA CARTERA — bloque completo
+   ============================================================ */
+
+/* Caja de la tabla: blanca, con bordes laterales y esquinas redondeadas */
+.cartera-table {
+  -fx-background-color: #ffffff;
+  -fx-background-radius: 16px;
+  -fx-border-color: #CEB3E3;
+  -fx-border-width: 1px;
+  -fx-border-radius: 16px;
+  -fx-focus-color: transparent;
+  -fx-faint-focus-color: transparent;
+}
+
+/* Cabecera: lavanda pastel, más alta y sin aspereza */
+.cartera-table .column-header-background {
+  -fx-background-color: #B8A9DB;
+  -fx-background-radius: 16px 16px 0 0;
+}
+
+.cartera-table .column-header {
+  -fx-background-color: transparent;
+  -fx-padding: 12px 8px 12px 8px;
+  -fx-border-color: transparent;
+-fx-padding: 20x 10px 20px 10px;
+}
+
+.cartera-table .column-header-background {
+  -fx-pref-height: 28px;
+}
+
+.cartera-table .column-header .label {
+  -fx-text-fill: #FFFFFF;
+  -fx-font-weight: 700;
+  -fx-font-size: 12.5px;
+}
+
+.cartera-table .table-row-cell {
+  -fx-background-color: #ffffff;
+  -fx-border-color: transparent transparent #f3eefb transparent;
+  -fx-border-width: 0 0 1 0;
+    -fx-cell-size: 25px;                /* filas con aire */
+
+}
+
+.cartera-table .table-row-cell:odd {
+  -fx-background-color: #faf8fe;
+}
+
+.cartera-table .table-row-cell:hover {
+  -fx-background-color: #F2EDFC;
+}
+
+.cartera-table .table-row-cell:selected {
+  -fx-background-color: #E2D7FA;
+}
+
+.cartera-table .table-row-cell:selected .table-cell {
+  -fx-text-fill: #5a4f8a;
+}
+
+/* Celdas */
+.cartera-table .table-cell {
+  -fx-padding: 8px 8px 8px 8px;
+  -fx-text-fill: #2f2f2f;
+  -fx-font-size: 13px;
+}
+
+/* Nombre del fondo: tu verde y negrita (es el dato principal) */
+.cartera-table .table-cell.fondo-col {
+  -fx-font-weight: 700;
+  -fx-text-fill: #4d7c7f;
+}
+
+/* Números alineados a la derecha */
+.cartera-table .table-cell.numeric-col {
+  -fx-alignment: CENTER-RIGHT;
+}
+
+/* Texto cuando la tabla está vacía */
+.cartera-table .placeholder .label {
+  -fx-text-fill: #a49cc0;
+  -fx-font-size: 13px;
+}
+
+/* Scrollbar pastel y discreta (aparece sola cuando haga falta) */
+.cartera-table .scroll-bar:vertical {
+  -fx-background-color: transparent;
+  -fx-pref-width: 10px;
+}
+
+.cartera-table .scroll-bar:vertical .track {
+  -fx-background-color: #f6f1fd;
+  -fx-background-radius: 999px;
+}
+
+.cartera-table .scroll-bar:vertical .thumb {
+  -fx-background-color: #d9cfee;
+  -fx-background-radius: 999px;
+}
+
+.cartera-table .scroll-bar:vertical .thumb:hover {
+  -fx-background-color: #c3b4e6;
+}
+
+.cartera-table .scroll-bar:vertical .increment-button,
+.cartera-table .scroll-bar:vertical .decrement-button {
+  -fx-opacity: 0;
+  -fx-pref-height: 0;
+}
+
+.cartera-table .corner {
+  -fx-background-color: transparent;
 }
