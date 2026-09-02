@@ -43,7 +43,7 @@ public class Activo {
         this.ticker = ticker;
     }
 
-    public Activo(String nombre, TipoActivo tipoActivo, String gestora, String isin) {
+    public Activo(String nombre, TipoActivo tipoActivo, String gestora, String isin, String mic, String ticker, String exchange) {
         this.nombre = nombre;
         this.tipoActivo = tipoActivo;
         this.gestora = gestora;

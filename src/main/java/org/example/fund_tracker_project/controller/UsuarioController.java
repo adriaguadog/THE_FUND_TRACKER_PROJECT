@@ -1,5 +1,6 @@
 package org.example.fund_tracker_project.controller;
 
+import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,7 @@ import org.example.fund_tracker_project.dao.OperacionDao;
 import org.example.fund_tracker_project.model.*;
 import org.example.fund_tracker_project.service.AlertCreation;
 import org.example.fund_tracker_project.service.GestorAPI;
+import org.example.fund_tracker_project.service.GestorYahoo;
 import org.example.fund_tracker_project.service.SceneCreation;
 
 import java.io.IOException;
@@ -30,6 +32,8 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static org.example.fund_tracker_project.service.GestorYahoo.getMicsDisponibles;
 
 public class UsuarioController implements Initializable {
 
@@ -194,13 +198,6 @@ public class UsuarioController implements Initializable {
                 }
             });
 
-            // Ocultar al perder el foco del TextField
-            txtBuscarActivo.focusedProperty().addListener((obs, oldVal, newVal) -> {
-                if (!newVal && !listViewActivos.isFocused()) {
-                    ocultarBuscador();
-                }
-            });
-
         } catch (SQLException e) {
             e.printStackTrace();
             AlertCreation.crearFallo("Error", "Error de conexión a la base de datos: " + e.getMessage());
@@ -244,21 +241,168 @@ public class UsuarioController implements Initializable {
         });
 
         btnNuevoFondo.setOnAction(event -> {
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Nuevo fondo");
-            dialog.setHeaderText("Introduce el ticker del fondo o ETF");
-            dialog.setContentText("Ticker:");
-            dialog.initOwner(btnNuevoFondo.getScene().getWindow());
-            Optional<String> resultado = dialog.showAndWait();
-
-            resultado.ifPresent(ticker -> {
-                System.out.println("Ticker introducido correctamente: " + ticker);
-            });
+            System.out.println(">>> CLICK en nuevo fondo");   // <-- este
+            mostrarDialogoNuevoFondo();
         });
 
         btnCerrarBuscador.setOnAction(event -> ocultarBuscador());
     }
 
+    private void mostrarDialogoNuevoFondo() {
+            Dialog<ButtonType> dialog = new Dialog<>();
+
+            //doy estilos
+            String css = getClass().getResource("/org/example/fund_tracker_project/login.css").toExternalForm();
+            dialog.getDialogPane().getStylesheets().add(css);
+            dialog.getDialogPane().getStyleClass().add("dialog-operacion");
+
+
+            dialog.setTitle("Nuevo fondo");
+            dialog.setHeaderText("Añade un fondo que no está en el catálogo");
+
+            //el boton cancel ya viene predeterminado en java fx
+            ButtonType botonGuardar = new ButtonType("Guardar", ButtonBar.ButtonData.OK_DONE);
+            dialog.getDialogPane().getButtonTypes().addAll(botonGuardar, ButtonType.CANCEL);
+
+            TextField txtTicker = new TextField();
+            txtTicker.setPromptText("Ejemplo: VWCE");
+            txtTicker.getStyleClass().add("campo-operacion");
+
+            TextField txtNombre = new TextField();
+            txtNombre.setPromptText("Ejemplo: Vanguard FTSE All-World");
+            txtNombre.getStyleClass().add("campo-operacion");
+
+            ComboBox<String> comboMic = new ComboBox<>();
+            comboMic.getItems().add("USA (sin sufijo)");
+            comboMic.getItems().addAll(GestorYahoo.getMicsDisponibles());
+            comboMic.setValue("USA (sin sufijo)");
+            comboMic.getStyleClass().add("campo-operacion");
+
+            ComboBox<TipoActivo> comboTipo = new ComboBox<>();
+            comboTipo.getItems().addAll(TipoActivo.values());
+            comboTipo.setValue(TipoActivo.FONDO);
+            comboTipo.getStyleClass().add("campo-operacion");
+
+        TextField txtGestora = new TextField();
+        txtGestora.setPromptText("Ejemplo: Vanguard");
+        txtGestora.getStyleClass().add("campo-operacion");
+
+        TextField txtIsin = new TextField();
+        txtIsin.setPromptText("Ejemplo: ES202652");
+        txtIsin.getStyleClass().add("campo-operacion");
+
+        TextField txtExchange = new TextField();
+        txtExchange.setPromptText("Ejemplo: USD");
+        txtExchange.getStyleClass().add("campo-operacion");
+
+            GridPane grid = new GridPane();
+            grid.getStyleClass().add("formulario-operacion");
+            grid.setHgap(10);
+            grid.setVgap(10);
+
+            //campos que se van a ocultar en funcion de si el activo es fondo o etf
+        Label lblTicker = new Label("* Ticker:");
+        Label lblMic = new Label("Mercado (MIC):");
+        Label lblIsin = new Label("ISIN:");
+
+            //ordenar los elementos
+            grid.add(lblTicker, 0, 0);
+            grid.add(txtTicker, 1, 0);
+            grid.add(new Label("* Nombre:"), 0, 1);
+            grid.add(txtNombre, 1, 1);
+            grid.add(lblMic, 0, 2);
+            grid.add(comboMic, 1, 2);
+            grid.add(new Label("Tipo:"), 0, 3);
+            grid.add(comboTipo, 1, 3);
+            grid.add(new Label("Gestora:"), 0, 4);
+            grid.add(txtGestora, 1, 4);
+            grid.add(lblIsin, 0, 5);
+            grid.add(txtIsin, 1, 5);
+            grid.add(new Label("Exchange:"), 0, 6);
+            grid.add(txtExchange, 1, 6);
+
+        BooleanBinding esFondo  = comboTipo.valueProperty().isEqualTo(TipoActivo.FONDO);
+        BooleanBinding noEsFondo = comboTipo.valueProperty().isNotEqualTo(TipoActivo.FONDO);
+
+// Ticker y MIC VISIBLES: solo si es ETF O ACCION
+        lblTicker.visibleProperty().bind(noEsFondo); lblTicker.managedProperty().bind(noEsFondo);
+        txtTicker.visibleProperty().bind(noEsFondo);  txtTicker.managedProperty().bind(noEsFondo);
+        lblMic.visibleProperty().bind(noEsFondo);     lblMic.managedProperty().bind(noEsFondo);
+        comboMic.visibleProperty().bind(noEsFondo);   comboMic.managedProperty().bind(noEsFondo);
+
+// ISIN: solo si ES fondo
+        lblIsin.visibleProperty().bind(esFondo);      lblIsin.managedProperty().bind(esFondo);
+        txtIsin.visibleProperty().bind(esFondo);      txtIsin.managedProperty().bind(esFondo);
+
+            dialog.getDialogPane().setContent(grid);
+
+        //dar estilos a los botones
+        dialog.setOnShown(event -> {
+            Button btnGuardarDlg = (Button) dialog.getDialogPane().lookupButton(botonGuardar);
+            Button btnCancelarDlg = (Button) dialog.getDialogPane().lookupButton(ButtonType.CANCEL);
+            if (btnGuardarDlg != null) {
+                btnGuardarDlg.getStyleClass().add("login-button");
+
+                //que solo aparezca la opcion de guardar cuando se rellenan nombre y ticker
+                btnGuardarDlg.disableProperty().bind(
+                        txtNombre.textProperty().isEmpty()
+                                .or(esFondo.and(txtIsin.textProperty().isEmpty()))
+                                .or(noEsFondo.and(txtTicker.textProperty().isEmpty()))
+                );
+            }
+            if (btnCancelarDlg != null) {
+                btnCancelarDlg.getStyleClass().add("close-button");
+            }
+        });
+
+            Optional<ButtonType> resultado = dialog.showAndWait();
+            if (resultado.isPresent() && resultado.get() == botonGuardar) {
+                //llamada al mét odo con la informacion guardada
+                        guardarNuevoFondo(txtTicker.getText(), txtNombre.getText(), comboMic.getValue(), comboTipo.getValue(), txtGestora.getText(), txtIsin.getText(), txtExchange.getText());
+        }
+    }
+
+    private void guardarNuevoFondo(String ticker, String nombre, String mic, TipoActivo tipoActivo, String gestora, String isin, String exchange) {
+        boolean esFondo = (tipoActivo == TipoActivo.FONDO);
+
+        // VALIDACIÓN: pide ISIN para fondos, ticker para el resto
+        if (nombre == null || nombre.isBlank()
+                || (esFondo && (isin == null || isin.isBlank()))
+                || (!esFondo && (ticker == null || ticker.isBlank()))) {
+            AlertCreation.crearWarning("Campos incompletos",
+                    esFondo ? "Nombre e ISIN son obligatorios" : "Nombre y ticker son obligatorios");
+            return;
+        }
+
+        // 2. Si es fondo, el ISIN hace de ticker; si no, el ticker normal
+        String tickerLimpio = esFondo ? isin.trim().toUpperCase() : ticker.trim().toUpperCase();
+        String micReal = (!esFondo && !"USA (sin sufijo)".equals(mic)) ? mic : null;
+
+        // 3. Construir el activo
+        Activo activo = new Activo();
+        activo.setTicker(tickerLimpio);
+        activo.setNombre(nombre.trim());
+        activo.setTipoActivo(tipoActivo);
+        activo.setGestora(gestora == null || gestora.isBlank() ? null : gestora.trim());
+        activo.setIsin(isin == null || isin.isBlank() ? null : isin.trim());
+        activo.setExchange(exchange == null || exchange.isBlank() ? null : exchange.trim());
+        activo.setMicCode(micReal);
+        activo.setTickerYahoo(GestorYahoo.construirTickerYahoo(tickerLimpio, micReal));
+
+        // 4. Guardar
+        try {
+            if (activoDao.comprobarActivo(activo) == 0) {
+                activoDao.insertarActivo(activo);
+                activosObservable.setAll(activoDao.obtenerTodos());
+                AlertCreation.crearInformacion("Fondo añadido",
+                        tickerLimpio + " (" + activo.getTickerYahoo() + ") ya está en tu catálogo");
+            } else {
+                AlertCreation.crearWarning("Fondo ya existente", "Este ticker ya está en la base de datos");
+            }
+        } catch (SQLException e) {
+            AlertCreation.crearFallo("Error", "No se pudo guardar: " + e.getMessage());
+        }
+    }
 
     public List<Activo> crearCatalogo() throws IOException, InterruptedException, SQLException {
         if (activoDao.obtenerTodos().isEmpty()) {
@@ -385,8 +529,7 @@ public class UsuarioController implements Initializable {
         }
     }
 
-    private void guardarOperacion(Activo activo, LocalDate fecha, TipoOperacion tipo,
-                                  String textoParticipaciones, String textoPrecio) {
+    private void guardarOperacion(Activo activo, LocalDate fecha, TipoOperacion tipo, String textoParticipaciones, String textoPrecio) {
         // campos vacíos?
         if (fecha == null || tipo == null
                 || textoParticipaciones.isEmpty() || textoPrecio.isEmpty()) {

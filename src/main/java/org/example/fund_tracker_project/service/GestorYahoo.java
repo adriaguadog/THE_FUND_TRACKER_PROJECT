@@ -1,7 +1,6 @@
 package org.example.fund_tracker_project.service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GestorYahoo {
 
@@ -41,5 +40,13 @@ public class GestorYahoo {
             String sufijo = SUFIJOS_YAHOO.getOrDefault(micCode, "");
             return ticker + sufijo;
         }
+
+        //PARA UTILIZAR EN EL DIALOGO DE ANHADIR NUEVO FONDO
+    public static List<String> getMicsDisponibles() {
+        List<String> mics = new ArrayList<>(SUFIJOS_YAHOO.keySet());
+        //ordeno alfabeticamente
+        Collections.sort(mics);
+        return mics;
+    }
     }
 

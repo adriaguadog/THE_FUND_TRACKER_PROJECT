@@ -44,13 +44,16 @@
           <mxGeometry x="460" y="70" width="120" height="80" as="geometry" />
         </mxCell>
         <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-23" value="PENDIENTE" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=light-dark(#e6d0de, #ecb6d8);gradientColor=#d5739d;strokeColor=#996185;" vertex="1" parent="1">
-          <mxGeometry x="827" y="170" width="260" height="90" as="geometry" />
+          <mxGeometry x="827" y="170" width="260" height="560" as="geometry" />
         </mxCell>
         <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-24" value="VALIDAR CONTRASENHA" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="iRHO0kiNQ7DTVJCmAGRQ-23">
           <mxGeometry y="30" width="260" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-25" value="DOBLE COMPROBACION CONTRASENHA" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="iRHO0kiNQ7DTVJCmAGRQ-23">
+        <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-25" value="DOBLE COMPROBACION CONTRASENHA&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="iRHO0kiNQ7DTVJCmAGRQ-23">
           <mxGeometry y="60" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-34" value="&lt;div&gt;&lt;div&gt;DBConnection: si la conexión falla devuelve null y todo peta después; y si se cierra, nunca se reabre.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;restarLinea() no usa try-with-resources y hace exactamente lo mismo que actualizarLineaCartera() → te sobra un método.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;RegistroController: instances() vacío, import de HelloApplication sin usar y lblMensaje que nunca muestras.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;crearCatalogo() llama a la API y a la BD en el hilo de la interfaz → la pantalla se congela al entrar (más adelante: moverlo a un hilo aparte).&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;ActivoDao.actualizarPrecio() vacío, comprobarActivo() sin usar, y GestorYahoo está creado pero todavía no se usa para nada real.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Botón &quot;Nuevo fondo&quot;: abre un diálogo que solo imprime por consola, no hace nada.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Contraseñas en texto plano y varchar(20) corto. Para un proyecto de clase vale, pero menciónalo como &quot;mejora futura&quot; en el README.&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" vertex="1" parent="iRHO0kiNQ7DTVJCmAGRQ-23">
+          <mxGeometry y="90" width="260" height="470" as="geometry" />
         </mxCell>
         <mxCell id="iRHO0kiNQ7DTVJCmAGRQ-31" value="ANHADIR FONDO" style="rhombus;whiteSpace=wrap;html=1;fillColor=#ffcd28;gradientColor=#ffa500;strokeColor=#d79b00;" vertex="1" parent="1">
           <mxGeometry x="320" y="580" width="80" height="80" as="geometry" />
