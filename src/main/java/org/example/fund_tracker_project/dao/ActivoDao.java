@@ -45,15 +45,14 @@ public class ActivoDao {
 
     public void insertarActivo(Activo activo) throws SQLException {
         String query = String.format(
-                "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s, %s) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?) " +
+                "INSERT INTO %s (%s, %s, %s, %s, %s, %s, %s) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?) " +
                         "ON DUPLICATE KEY UPDATE " +
-                        "%s = ?, %s = ?, %s = ?, %s = ?",
+                        "%s = ?, %s = ?, %s = ?, %s = ?, %s = ?",
                 SchemDB.TAB_ACTIVO,
                 SchemDB.COL_ACTIVO_NOMBRE,
                 SchemDB.COL_ACTIVO_TIPO,
                 SchemDB.COL_ACTIVO_GESTORA,
-                SchemDB.COL_ACTIVO_ISIN,
                 SchemDB.COL_ACTIVO_TICKER,
                 SchemDB.COL_ACTIVO_EXCHANGE,
                 SchemDB.COL_ACTIVO_MIC_CODE,
@@ -61,23 +60,25 @@ public class ActivoDao {
                 SchemDB.COL_ACTIVO_NOMBRE,
                 SchemDB.COL_ACTIVO_GESTORA,
                 SchemDB.COL_ACTIVO_MIC_CODE,
-                SchemDB.COL_ACTIVO_TICKER_YAHOO
-        );
+                SchemDB.COL_ACTIVO_TICKER_YAHOO,
+                SchemDB.COL_ACTIVO_EXCHANGE
+                );
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, activo.getNombre());
             ps.setString(2, activo.getTipoActivo().name());
             ps.setString(3, activo.getGestora());
-            ps.setString(4, activo.getIsin());
-            ps.setString(5, activo.getTicker());
-            ps.setString(6, activo.getExchange());
-            ps.setString(7, activo.getMicCode());
-            ps.setString(8, activo.getTickerYahoo());
+            ps.setString(4, activo.getTicker());
+            ps.setString(5, activo.getExchange());
+            ps.setString(6, activo.getMicCode());
+            ps.setString(7, activo.getTickerYahoo());
 
-            ps.setString(9, activo.getNombre());
-            ps.setString(10, activo.getGestora());
-            ps.setString(11, activo.getMicCode());
-            ps.setString(12, activo.getTickerYahoo());
+            ps.setString(8, activo.getNombre());
+            ps.setString(9, activo.getGestora());
+            ps.setString(10, activo.getMicCode());
+            ps.setString(11, activo.getTickerYahoo());
+            ps.setString(12, activo.getExchange());
+
 
             ps.executeUpdate();
         }
@@ -102,7 +103,6 @@ public class ActivoDao {
                 activo.setTipoActivo(TipoActivo.valueOf(rs.getString(SchemDB.COL_ACTIVO_TIPO))
                 );
                 activo.setGestora(rs.getString(SchemDB.COL_ACTIVO_GESTORA));
-                activo.setIsin(rs.getString(SchemDB.COL_ACTIVO_ISIN));
                 activo.setTicker(rs.getString(SchemDB.COL_ACTIVO_TICKER));
                 activo.setExchange(rs.getString(SchemDB.COL_ACTIVO_EXCHANGE));
                 activo.setMicCode(rs.getString(SchemDB.COL_ACTIVO_MIC_CODE));

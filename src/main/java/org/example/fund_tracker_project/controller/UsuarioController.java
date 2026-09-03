@@ -183,10 +183,8 @@ public class UsuarioController implements Initializable {
                             activo.getTicker().toLowerCase().contains(textoBusqueda);
                     boolean coincideNombre = activo.getNombre() != null &&
                             activo.getNombre().toLowerCase().contains(textoBusqueda);
-                    boolean coincideIsin = activo.getIsin() != null &&
-                            activo.getIsin().toLowerCase().contains(textoBusqueda);
 
-                    return coincideTicker || coincideNombre || coincideIsin;
+                    return coincideTicker || coincideNombre;
                 });
             });
 
@@ -274,7 +272,7 @@ public class UsuarioController implements Initializable {
 
             ComboBox<String> comboMic = new ComboBox<>();
             comboMic.getItems().add("USA (sin sufijo)");
-            comboMic.getItems().addAll(GestorYahoo.getMicsDisponibles());
+            comboMic.getItems().addAll(getMicsDisponibles());
             comboMic.setValue("USA (sin sufijo)");
             comboMic.getStyleClass().add("campo-operacion");
 
@@ -292,7 +290,7 @@ public class UsuarioController implements Initializable {
         txtIsin.getStyleClass().add("campo-operacion");
 
         TextField txtExchange = new TextField();
-        txtExchange.setPromptText("Ejemplo: USD");
+        txtExchange.setPromptText("Ejemplo: NASDAQ");
         txtExchange.getStyleClass().add("campo-operacion");
 
             GridPane grid = new GridPane();
@@ -303,7 +301,7 @@ public class UsuarioController implements Initializable {
             //campos que se van a ocultar en funcion de si el activo es fondo o etf
         Label lblTicker = new Label("* Ticker:");
         Label lblMic = new Label("Mercado (MIC):");
-        Label lblIsin = new Label("ISIN:");
+        Label lblIsin = new Label("* ISIN:");
 
             //ordenar los elementos
             grid.add(lblTicker, 0, 0);
@@ -316,8 +314,8 @@ public class UsuarioController implements Initializable {
             grid.add(comboTipo, 1, 3);
             grid.add(new Label("Gestora:"), 0, 4);
             grid.add(txtGestora, 1, 4);
-            grid.add(lblIsin, 0, 5);
-            grid.add(txtIsin, 1, 5);
+            grid.add(lblIsin, 0, 0);
+            grid.add(txtIsin, 1, 0);
             grid.add(new Label("Exchange:"), 0, 6);
             grid.add(txtExchange, 1, 6);
 
@@ -365,7 +363,6 @@ public class UsuarioController implements Initializable {
     private void guardarNuevoFondo(String ticker, String nombre, String mic, TipoActivo tipoActivo, String gestora, String isin, String exchange) {
         boolean esFondo = (tipoActivo == TipoActivo.FONDO);
 
-        // VALIDACIÓN: pide ISIN para fondos, ticker para el resto
         if (nombre == null || nombre.isBlank()
                 || (esFondo && (isin == null || isin.isBlank()))
                 || (!esFondo && (ticker == null || ticker.isBlank()))) {
@@ -374,30 +371,32 @@ public class UsuarioController implements Initializable {
             return;
         }
 
-        // 2. Si es fondo, el ISIN hace de ticker; si no, el ticker normal
-        String tickerLimpio = esFondo ? isin.trim().toUpperCase() : ticker.trim().toUpperCase();
-        String micReal = (!esFondo && !"USA (sin sufijo)".equals(mic)) ? mic : null;
+        // UNA vez: el identificador del activo (ISIN si es fondo, ticker si cotiza)
+        String identificador = esFondo ? isin.trim().toUpperCase() : ticker.trim().toUpperCase();
+        String micReal = (esFondo || "USA (sin sufijo)".equals(mic)) ? null : mic.trim().toUpperCase();
 
-        // 3. Construir el activo
         Activo activo = new Activo();
-        activo.setTicker(tickerLimpio);
+        activo.setTicker(identificador);
         activo.setNombre(nombre.trim());
         activo.setTipoActivo(tipoActivo);
         activo.setGestora(gestora == null || gestora.isBlank() ? null : gestora.trim());
-        activo.setIsin(isin == null || isin.isBlank() ? null : isin.trim());
-        activo.setExchange(exchange == null || exchange.isBlank() ? null : exchange.trim());
+        activo.setExchange(exchange == null || exchange.isBlank() ? null : exchange.trim().toUpperCase());
         activo.setMicCode(micReal);
-        activo.setTickerYahoo(GestorYahoo.construirTickerYahoo(tickerLimpio, micReal));
 
-        // 4. Guardar
+        if (!esFondo) {
+            activo.setTickerYahoo(GestorYahoo.construirTickerYahoo(identificador, micReal));
+        }
+
         try {
             if (activoDao.comprobarActivo(activo) == 0) {
                 activoDao.insertarActivo(activo);
                 activosObservable.setAll(activoDao.obtenerTodos());
-                AlertCreation.crearInformacion("Fondo añadido",
-                        tickerLimpio + " (" + activo.getTickerYahoo() + ") ya está en tu catálogo");
+                AlertCreation.crearInformacion(esFondo ? "Fondo añadido" : "Activo añadido",
+                        esFondo ? "Se ha añadido el fondo " + identificador
+                                : "Se ha añadido " + identificador + " (" + activo.getTickerYahoo() + ")");
             } else {
-                AlertCreation.crearWarning("Fondo ya existente", "Este ticker ya está en la base de datos");
+                AlertCreation.crearWarning("Ya existe",
+                        esFondo ? "Ese ISIN ya está en la base de datos" : "Ese ticker ya está en la base de datos");
             }
         } catch (SQLException e) {
             AlertCreation.crearFallo("Error", "No se pudo guardar: " + e.getMessage());

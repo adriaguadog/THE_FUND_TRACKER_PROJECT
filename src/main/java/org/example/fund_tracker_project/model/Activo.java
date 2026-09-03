@@ -23,9 +23,6 @@ public class Activo {
 
     private String gestora;
 
-    @JsonProperty("isin")
-    private String isin;
-
     private long idActivo;
 
     @JsonProperty("symbol")
@@ -43,18 +40,19 @@ public class Activo {
         this.ticker = ticker;
     }
 
-    public Activo(String nombre, TipoActivo tipoActivo, String gestora, String isin, String mic, String ticker, String exchange) {
+    public Activo(String nombre, TipoActivo tipoActivo, String gestora, String ticker, String exchange, String micCode) {
         this.nombre = nombre;
         this.tipoActivo = tipoActivo;
         this.gestora = gestora;
-        this.isin = isin;
+        this.ticker = ticker;
+        this.exchange = exchange;
+        this.micCode = micCode;
     }
 
     @Override
     public String toString() {
         String t = ticker != null ? ticker : "";
         String n = nombre != null ? nombre : "";
-        String i = isin != null ? isin : "";
 
         int tickerWidth = 10;
         int nameWidth = 40;
@@ -63,7 +61,7 @@ public class Activo {
             n = n.substring(0, nameWidth - 1) + "…";
         }
 
-        String formatted = String.format("%-" + tickerWidth + "s  %-" + nameWidth + "s  %s", t, n, i).trim();
+        String formatted = String.format("%-" + tickerWidth + "s  %-" + nameWidth + "s", t, n).trim();
         return formatted;
     }
     }

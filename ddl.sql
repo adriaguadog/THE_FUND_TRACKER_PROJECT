@@ -17,6 +17,9 @@ ALTER TABLE activo ADD COLUMN ticker_yahoo varchar(10) DEFAULT NULL,
 ADD COLUMN exchange varchar(50) DEFAULT NULL,
 ADD COLUMN mic_code varchar(10) DEFAULT NULL;
 
+--quito la fila isin de los fondos ya que se guardan como ticker en los fondos y no se usan
+ALTER TABLE activo DROP COLUMN isin;
+
 -- fund_tracker_project.usuarios definition
 
 CREATE TABLE `usuarios` (
